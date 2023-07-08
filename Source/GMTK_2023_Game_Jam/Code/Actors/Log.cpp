@@ -15,6 +15,7 @@ ALog::ALog()
 void ALog::BeginPlay()
 {
 	Super::BeginPlay();
+	movementEnabled = true;
 	startingLocation = GetActorLocation();
 }
 
@@ -22,17 +23,25 @@ void ALog::BeginPlay()
 void ALog::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	FVector NewLocation = GetActorLocation();
-	NewLocation.X += speed * direction;
-	SetActorLocation(NewLocation);
 
-	if (direction > 0 && NewLocation.X > posBound)
+	if (movementEnabled)
 	{
-		SetActorLocation(startingLocation);
+		FVector NewLocation = GetActorLocation();
+		NewLocation.X += speed * direction;
+		SetActorLocation(NewLocation);
+		if (direction > 0 && NewLocation.X > posBound)
+		{
+			SetActorLocation(startingLocation);
+		}
+		else if (direction < 0 && NewLocation.X < negBound)
+		{
+			SetActorLocation(startingLocation);
+		}
 	}
-	else if (direction < 0 && NewLocation.X < negBound)
-	{
-		SetActorLocation(startingLocation);
-	}
+	
 }
 
+void ALog::EnableAutoMovement(bool enable)
+{
+	movementEnabled = enable;
+}

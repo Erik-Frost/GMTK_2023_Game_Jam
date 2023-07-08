@@ -28,6 +28,7 @@ public:
 		int32 posBound;
 
 	FVector startingLocation;
+	bool movementEnabled;
 
 protected:
 	// Called when the game starts or when spawned
@@ -36,4 +37,7 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
+	void EnableAutoMovement(bool enable);
 };
