@@ -26,10 +26,7 @@ void UMainMenuWidget::PlayButtonPressed()
 
 void UMainMenuWidget::ButtonPressed()
 {
-	if (auto MainMenuHud = Cast<AHUD_MainMenu>(GetOwningPlayer()->GetHUD()))
-	{
-		MainMenuHud->OpenCreditsMenu();
-	}
+	
 }
 
 void UMainMenuWidget::QuitButtonPressed()
