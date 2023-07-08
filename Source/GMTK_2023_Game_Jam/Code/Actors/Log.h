@@ -15,6 +15,20 @@ public:
 	// Sets default values for this actor's properties
 	ALog();
 
+	UPROPERTY(EditAnywhere)
+	int32 speed;
+
+	UPROPERTY(EditAnywhere)
+	float direction = 1;
+
+	UPROPERTY(EditAnywhere)
+		int32 negBound;
+
+	UPROPERTY(EditAnywhere)
+		int32 posBound;
+
+	FVector startingLocation;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
