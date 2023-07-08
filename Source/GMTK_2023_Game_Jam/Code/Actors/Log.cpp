@@ -41,6 +41,7 @@ void ALog::Tick(float DeltaTime)
 	
 }
 
+
 void ALog::EnableAutoMovement(bool enable)
 {
 	movementEnabled = enable;
