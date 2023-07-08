@@ -22,6 +22,7 @@ void AHUD_MainMenu::BeginPlay()
 
 	MainMenu = CreateWidget<UMainMenuWidget>(PlayerOwner, MainMenuClass);
 	SettingsMenu = CreateWidget<USettingsMenuWidget>(PlayerOwner, SettingsMenuClass);
+	CreditsMenu = CreateWidget<UCreditsMenuWidget>(PlayerOwner, CreditsMenuClass);
 
 	OpenMainMenu();
 	

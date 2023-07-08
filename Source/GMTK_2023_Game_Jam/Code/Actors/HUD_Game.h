@@ -10,16 +10,12 @@ UCLASS()
 class GMTK_2023_GAME_JAM_API AHUD_Game : public AHUD
 {
 	GENERATED_BODY()
-
 public:
-	// Sets default values for this actor's properties
+
+	
 	AHUD_Game();
-
-protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	
 };

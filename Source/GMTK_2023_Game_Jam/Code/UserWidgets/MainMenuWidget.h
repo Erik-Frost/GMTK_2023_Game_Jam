@@ -27,6 +27,10 @@ public:
 
 
 	UFUNCTION()
-	void OnPlayButtonPressed();
+	void PlayButtonPressed();
+	UFUNCTION()
+	void ButtonPressed();
+	UFUNCTION()
+	void QuitButtonPressed();
 	
 };

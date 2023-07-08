@@ -15,6 +15,12 @@ class GMTK_2023_GAME_JAM_API UGameInstance_Custom : public UGameInstance
 	GENERATED_BODY()
 public:
 
+	UPROPERTY(EditDefaultsOnly)
+	TSoftObjectPtr<UWorld> GameLevel = nullptr;
+	UPROPERTY(EditDefaultsOnly)
+	TSoftObjectPtr<UWorld> MainMenuLevel = nullptr;
+	
+	
 	virtual void Init() override;
 	virtual void Shutdown() override;
 };

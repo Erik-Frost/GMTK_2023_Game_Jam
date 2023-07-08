@@ -2,3 +2,13 @@
 
 
 #include "GameInstance_Custom.h"
+
+void UGameInstance_Custom::Init()
+{
+	Super::Init();
+}
+
+void UGameInstance_Custom::Shutdown()
+{
+	Super::Shutdown();
+}

@@ -13,4 +13,6 @@ UCLASS()
 class GMTK_2023_GAME_JAM_API USettingsMenuWidget : public UUserWidget
 {
 	GENERATED_BODY()
+public:
+	
 };
