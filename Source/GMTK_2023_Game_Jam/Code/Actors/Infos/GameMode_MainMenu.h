@@ -3,16 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/GameMode.h"
 #include "GameFramework/GameModeBase.h"
-#include "GMTK_2023_Game_JamGameMode.generated.h"
+#include "GameMode_MainMenu.generated.h"
 
 UCLASS(minimalapi)
-class AGMTK_2023_Game_JamGameMode : public AGameModeBase
+class AGameMode_MainMenu : public AGameMode
 {
 	GENERATED_BODY()
 
 public:
-	AGMTK_2023_Game_JamGameMode();
+	AGameMode_MainMenu();
 };
 
 

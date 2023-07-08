@@ -8,6 +8,7 @@ public class GMTK_2023_Game_Jam : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput" });
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", 
+	        "HeadMountedDisplay", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput" });
     }
 }

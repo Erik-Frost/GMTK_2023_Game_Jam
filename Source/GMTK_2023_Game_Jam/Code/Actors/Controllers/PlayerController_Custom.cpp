@@ -1,16 +1,15 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "GMTK_2023_Game_JamPlayerController.h"
+#include "PlayerController_Custom.h"
 #include "GameFramework/Pawn.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "NiagaraSystem.h"
 #include "NiagaraFunctionLibrary.h"
-#include "GMTK_2023_Game_JamCharacter.h"
 #include "Engine/World.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
-AGMTK_2023_Game_JamPlayerController::AGMTK_2023_Game_JamPlayerController()
+APlayerController_Custom::APlayerController_Custom()
 {
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
@@ -18,7 +17,7 @@ AGMTK_2023_Game_JamPlayerController::AGMTK_2023_Game_JamPlayerController()
 	FollowTime = 0.f;
 }
 
-void AGMTK_2023_Game_JamPlayerController::BeginPlay()
+void APlayerController_Custom::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
@@ -30,7 +29,7 @@ void AGMTK_2023_Game_JamPlayerController::BeginPlay()
 	}
 }
 
-void AGMTK_2023_Game_JamPlayerController::SetupInputComponent()
+void APlayerController_Custom::SetupInputComponent()
 {
 	// set up gameplay key bindings
 	Super::SetupInputComponent();
@@ -39,26 +38,26 @@ void AGMTK_2023_Game_JamPlayerController::SetupInputComponent()
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
 	{
 		// Setup mouse input events
-		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Started, this, &AGMTK_2023_Game_JamPlayerController::OnInputStarted);
-		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Triggered, this, &AGMTK_2023_Game_JamPlayerController::OnSetDestinationTriggered);
-		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Completed, this, &AGMTK_2023_Game_JamPlayerController::OnSetDestinationReleased);
-		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Canceled, this, &AGMTK_2023_Game_JamPlayerController::OnSetDestinationReleased);
+		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Started, this, &APlayerController_Custom::OnInputStarted);
+		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Triggered, this, &APlayerController_Custom::OnSetDestinationTriggered);
+		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Completed, this, &APlayerController_Custom::OnSetDestinationReleased);
+		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Canceled, this, &APlayerController_Custom::OnSetDestinationReleased);
 
 		// Setup touch input events
-		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Started, this, &AGMTK_2023_Game_JamPlayerController::OnInputStarted);
-		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Triggered, this, &AGMTK_2023_Game_JamPlayerController::OnTouchTriggered);
-		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Completed, this, &AGMTK_2023_Game_JamPlayerController::OnTouchReleased);
-		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Canceled, this, &AGMTK_2023_Game_JamPlayerController::OnTouchReleased);
+		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Started, this, &APlayerController_Custom::OnInputStarted);
+		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Triggered, this, &APlayerController_Custom::OnTouchTriggered);
+		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Completed, this, &APlayerController_Custom::OnTouchReleased);
+		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Canceled, this, &APlayerController_Custom::OnTouchReleased);
 	}
 }
 
-void AGMTK_2023_Game_JamPlayerController::OnInputStarted()
+void APlayerController_Custom::OnInputStarted()
 {
 	StopMovement();
 }
 
 // Triggered every frame when the input is held down
-void AGMTK_2023_Game_JamPlayerController::OnSetDestinationTriggered()
+void APlayerController_Custom::OnSetDestinationTriggered()
 {
 	// We flag that the input is being pressed
 	FollowTime += GetWorld()->GetDeltaSeconds();
@@ -90,7 +89,7 @@ void AGMTK_2023_Game_JamPlayerController::OnSetDestinationTriggered()
 	}
 }
 
-void AGMTK_2023_Game_JamPlayerController::OnSetDestinationReleased()
+void APlayerController_Custom::OnSetDestinationReleased()
 {
 	// If it was a short press
 	if (FollowTime <= ShortPressThreshold)
@@ -104,13 +103,13 @@ void AGMTK_2023_Game_JamPlayerController::OnSetDestinationReleased()
 }
 
 // Triggered every frame when the input is held down
-void AGMTK_2023_Game_JamPlayerController::OnTouchTriggered()
+void APlayerController_Custom::OnTouchTriggered()
 {
 	bIsTouch = true;
 	OnSetDestinationTriggered();
 }
 
-void AGMTK_2023_Game_JamPlayerController::OnTouchReleased()
+void APlayerController_Custom::OnTouchReleased()
 {
 	bIsTouch = false;
 	OnSetDestinationReleased();

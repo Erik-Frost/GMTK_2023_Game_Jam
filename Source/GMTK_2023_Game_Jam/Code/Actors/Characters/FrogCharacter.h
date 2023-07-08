@@ -4,15 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "GMTK_2023_Game_JamCharacter.generated.h"
+#include "FrogCharacter.generated.h"
 
 UCLASS(Blueprintable)
-class AGMTK_2023_Game_JamCharacter : public ACharacter
+class AFrogCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	AGMTK_2023_Game_JamCharacter();
+
+	UPROPERTY(EditAnywhere)
+	class UStaticMeshComponent* StaticMeshComponent = nullptr;
+	
+
+	AFrogCharacter();
+	
+	
 
 	// Called every frame.
 	virtual void Tick(float DeltaSeconds) override;

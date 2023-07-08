@@ -6,18 +6,18 @@
 #include "Templates/SubclassOf.h"
 #include "GameFramework/PlayerController.h"
 #include "InputActionValue.h"
-#include "GMTK_2023_Game_JamPlayerController.generated.h"
+#include "PlayerController_Custom.generated.h"
 
 /** Forward declaration to improve compiling times */
 class UNiagaraSystem;
 
 UCLASS()
-class AGMTK_2023_Game_JamPlayerController : public APlayerController
+class APlayerController_Custom : public APlayerController
 {
 	GENERATED_BODY()
 
 public:
-	AGMTK_2023_Game_JamPlayerController();
+	APlayerController_Custom();
 
 	/** Time Threshold to know if it was a short press */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
