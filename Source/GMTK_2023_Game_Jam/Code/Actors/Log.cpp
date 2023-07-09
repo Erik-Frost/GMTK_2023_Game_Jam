@@ -27,13 +27,13 @@ void ALog::Tick(float DeltaTime)
 	if (movementEnabled)
 	{
 		FVector NewLocation = GetActorLocation();
-		NewLocation.X += speed * direction;
+		NewLocation.Y += speed * direction;
 		SetActorLocation(NewLocation);
-		if (direction > 0 && NewLocation.X > posBound)
+		if (direction > 0 && NewLocation.Y > posBound)
 		{
 			SetActorLocation(startingLocation);
 		}
-		else if (direction < 0 && NewLocation.X < negBound)
+		else if (direction < 0 && NewLocation.Y < negBound)
 		{
 			SetActorLocation(startingLocation);
 		}
