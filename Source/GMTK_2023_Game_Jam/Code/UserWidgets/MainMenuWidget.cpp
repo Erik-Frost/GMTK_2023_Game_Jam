@@ -9,28 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
-void UMainMenuWidget::NativeOnInitialized()
+void UMainMenuWidget::NativeConstruct()
 {
-	Super::NativeOnInitialized();
-
-	PlayButton->OnPressed.AddUniqueDynamic(this, &UMainMenuWidget::PlayButtonPressed);
-	CreditsButton->OnPressed.AddUniqueDynamic(this, &UMainMenuWidget::ButtonPressed);
-	QuitButton->OnPressed.AddUniqueDynamic(this, &UMainMenuWidget::QuitButtonPressed);
-}
-
-void UMainMenuWidget::PlayButtonPressed()
-{
-	auto GameInstanceLocal = Cast<UGameInstance_Custom>(GetGameInstance());
-	UGameplayStatics::OpenLevelBySoftObjectPtr(GetWorld(), GameInstanceLocal->GameLevel);
-}
-
-void UMainMenuWidget::ButtonPressed()
-{
-	
-}
-
-void UMainMenuWidget::QuitButtonPressed()
-{
-	UKismetSystemLibrary::QuitGame(GetWorld(), GetOwningPlayer(),
-		EQuitPreference::Quit, false);
+	Super::NativeConstruct();
 }

@@ -4,15 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "SettingsMenuWidget.generated.h"
+#include "MainMenuButtons.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class GMTK_2023_GAME_JAM_API USettingsMenuWidget : public UUserWidget
+class GMTK_2023_GAME_JAM_API UMainMenuButtons : public UUserWidget
 {
 	GENERATED_BODY()
 public:
+
 	
 };

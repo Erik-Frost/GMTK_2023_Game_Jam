@@ -3,9 +3,7 @@
 
 #include "HUD_MainMenu.h"
 
-#include "GMTK_2023_Game_Jam/Code/UserWidgets/CreditsMenuWidget.h"
 #include "GMTK_2023_Game_Jam/Code/UserWidgets/MainMenuWidget.h"
-#include "GMTK_2023_Game_Jam/Code/UserWidgets/SettingsMenuWidget.h"
 
 
 // Sets default values
@@ -21,11 +19,7 @@ void AHUD_MainMenu::BeginPlay()
 	Super::BeginPlay();
 
 	MainMenu = CreateWidget<UMainMenuWidget>(PlayerOwner, MainMenuClass);
-	SettingsMenu = CreateWidget<USettingsMenuWidget>(PlayerOwner, SettingsMenuClass);
-	CreditsMenu = CreateWidget<UCreditsMenuWidget>(PlayerOwner, CreditsMenuClass);
-
-	OpenMainMenu();
-	
+	MainMenu->AddToViewport();
 }
 
 // Called every frame
@@ -34,33 +28,4 @@ void AHUD_MainMenu::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AHUD_MainMenu::OpenMainMenu()
-{
-	CloseAllMenus();
-	MainMenu->AddToViewport();
-}
-
-void AHUD_MainMenu::OpenSettingsMenu()
-{
-	CloseAllMenus();
-	SettingsMenu->AddToViewport();
-}
-
-void AHUD_MainMenu::OpenCreditsMenu()
-{
-	CloseAllMenus();
-	CreditsMenu->AddToViewport();
-}
-
-void AHUD_MainMenu::CloseAllMenus()
-{
-	if (MainMenu->IsInViewport()) MainMenu->RemoveFromParent();
-	if (SettingsMenu->IsInViewport()) SettingsMenu->RemoveFromParent();
-	if (CreditsMenu->IsInViewport()) CreditsMenu->RemoveFromParent();
-
-	// According to the unreal community, widgets don't seem to reliable garbage collect
-	// When they have been removed from their parent and all refs to them have been removed
-	// Manually calling garbage collect is said to help.
-	TryCollectGarbage(RF_NoFlags);
-}
 

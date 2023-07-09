@@ -10,32 +10,44 @@ UCLASS(Blueprintable)
 class AFrogCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
 public:
 
-	UPROPERTY(EditAnywhere)
-	class UStaticMeshComponent* StaticMeshComponent = nullptr;
-	
+	inline static float GridSize = 100;
 
-	AFrogCharacter();
-	
-	
-
-	// Called every frame.
-	virtual void Tick(float DeltaSeconds) override;
-
-	/** Returns TopDownCameraComponent subobject **/
-	FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
-	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-
-private:
-	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* TopDownCameraComponent;
-
-	/** Camera boom positioning the camera above the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* MoveIndicatorStaticMeshComponent;
+	
+	
+
+	
+	AFrogCharacter();
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
+
+
+	// In this method, the Frog chooses what tile it is going to move to
+	virtual FIntVector2 PickNextMoveLocation();
+	
+	
+	FVector RoundLocationToGrid(const FVector& Location);
+	FVector RelativeGridLocationToWorld(const FIntVector2& GridLocation);
+
+private:
+
+	UPROPERTY(VisibleAnywhere)
+	float CurrentMoveCooldown = 0;
+	UPROPERTY(EditAnywhere)
+	float MoveCooldown = 1;
+	UPROPERTY(VisibleAnywhere)
+	TSet<FIntVector2> NearbyTilesInBounds = {};
+	UPROPERTY(VisibleAnywhere)
+	FIntVector2 NextMovePosition = FIntVector2(0, 0);
+	
+	
 };
 

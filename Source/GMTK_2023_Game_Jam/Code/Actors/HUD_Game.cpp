@@ -3,7 +3,6 @@
 
 #include "HUD_Game.h"
 
-#include "GMTK_2023_Game_Jam/Code/UserWidgets/CreditsMenuWidget.h"
 #include "GMTK_2023_Game_Jam/Code/UserWidgets/GameMenuWidget.h"
 
 
@@ -20,8 +19,7 @@ void AHUD_Game::BeginPlay()
 	Super::BeginPlay();
 
 	GameMenu = CreateWidget<UGameMenuWidget>(PlayerOwner, GameMenuClass);
-
-	OpenGameMenu();
+	GameMenu->AddToViewport();
 }
 
 // Called every frame
@@ -30,19 +28,7 @@ void AHUD_Game::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AHUD_Game::OpenGameMenu()
-{
-	CloseAllMenus();
-	GameMenu->AddToViewport();
-}
 
-void AHUD_Game::CloseAllMenus()
-{
-	if (GameMenu->IsInViewport()) GameMenu->RemoveFromParent();
 
-	// According to the unreal community, widgets don't seem to reliable garbage collect
-	// When they have been removed from their parent and all refs to them have been removed
-	// Manually calling garbage collect is said to help.
-	TryCollectGarbage(RF_NoFlags);
-}
+
 

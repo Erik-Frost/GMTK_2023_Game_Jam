@@ -18,29 +18,18 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> MainMenuClass = nullptr;
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UUserWidget> SettingsMenuClass = nullptr;
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UUserWidget> CreditsMenuClass = nullptr;
+
 	
 	
 	AHUD_MainMenu();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	void OpenMainMenu();
-	void OpenSettingsMenu();
-	void OpenCreditsMenu();
-
-	void CloseAllMenus();
 
 
 private:
 
 	UPROPERTY(VisibleAnywhere)
 	UMainMenuWidget* MainMenu = nullptr;
-	UPROPERTY(VisibleAnywhere)
-	USettingsMenuWidget* SettingsMenu = nullptr;
-	UPROPERTY(VisibleAnywhere)
-	UCreditsMenuWidget* CreditsMenu = nullptr;
+
 };
