@@ -63,20 +63,26 @@ void AFrogCharacter::Tick(float DeltaSeconds)
     Super::Tick(DeltaSeconds);
 
 
+	if (IsMoving)
+	{
+		GetCapsuleComponent()->SetSimulatePhysics(false);
+		auto MoveLocation = RelativeGridLocationToWorldFromMoveStart(NextMovePosition);
+		MoveDelta += FMath::Clamp(DeltaSeconds / MoveSpeedInSeconds, 0, 1);
+		SetActorLocation(UKismetMathLibrary::VLerp(MoveStartPosition, MoveLocation, MoveDelta));
+		if (MoveDelta >= 1)
+		{
+			IsMoving = false;
+			MoveDelta = 0;
+			GetCapsuleComponent()->SetSimulatePhysics(true);
+			GetCapsuleComponent()->SetAllPhysicsLinearVelocity(FVector(0,0,0));
+			GetCapsuleComponent()->SetAllPhysicsAngularVelocityInDegrees(FVector(0,0,0));
+		}
+	}
+
+
 	if (CurrentMoveCooldown > 0) CurrentMoveCooldown -= DeltaSeconds;
 	else
 	{
-		
-		
-		// Move the frog
-		if (NextMovePosition != FIntVector2(0, 0))
-		{
-			auto MoveLocation = RelativeGridLocationToWorld(NextMovePosition);
-			SetActorLocation(MoveLocation);
-		}
-
-
-
 		
 		// Find Nearby tiles in bounds
 		NearbyTilesInBounds.Empty();
@@ -111,9 +117,17 @@ void AFrogCharacter::Tick(float DeltaSeconds)
 		auto LookAtLocation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(),
 			RelativeGridLocationToWorld(NextMovePosition));
 		SetActorRotation(FRotator::MakeFromEuler(FVector(0,0, LookAtLocation.Yaw)));
+
+		// Move the frog
+		if (NextMovePosition != FIntVector2(0, 0))
+		{
+			IsMoving = true;
+			MoveStartPosition = GetActorLocation();
+			GetMesh()->GetAnimInstance()->Montage_Play(JumpAnimation.LoadSynchronous());
+		}
 		
 		
-		CurrentMoveCooldown = MoveCooldown;
+		CurrentMoveCooldown = FMath::RandRange(MoveCooldown.X, MoveCooldown.Y);
 	}
 }
 
@@ -146,5 +160,11 @@ FVector AFrogCharacter::RoundLocationToGrid(const FVector& Location)
 FVector AFrogCharacter::RelativeGridLocationToWorld(const FIntVector2& GridLocation)
 {
 	return RoundLocationToGrid(GetActorLocation() +
+				FVector(GridLocation.X * GridSize, GridLocation.Y * GridSize, 0));
+}
+
+FVector AFrogCharacter::RelativeGridLocationToWorldFromMoveStart(const FIntVector2& GridLocation)
+{
+	return RoundLocationToGrid(MoveStartPosition +
 				FVector(GridLocation.X * GridSize, GridLocation.Y * GridSize, 0));
 }
